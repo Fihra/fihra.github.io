@@ -10,23 +10,24 @@ let nameNoteText;
 let xPos = 0;
 let speed = 0.6;
 
-let testBtn;
+let showNameBtn;
 
 function showNameNote(){
     nameNote = createDiv(name);
-    nameNote.position(20, 20);
-    nameNote.size(200, 200);
+    nameNote.position(500, 20);
+    nameNote.size(300, 100);
     nameNote.style('border', '2px solid #ccc');
     nameNote.style('box-shadow', '5px 5px 15px rgba(0,0,0,0.3)');
     nameNote.style('font-size', '20px');
     nameNote.style('background', 'green');
+    nameNote.style('color', 'white');
     nameNote.style('padding', '5px');
-        nameNote.style('overflow', 'hidden');
+    nameNote.style('overflow', 'hidden');
 
+    // nameNote.mouseClicked(() => nameNote.size(500, 500));
 
     nameCloseButton = createButton('X');
     nameCloseButton.parent(nameNote);
-
     nameCloseButton.style('background-color', 'red');
     nameCloseButton.style('color', 'black');
     nameCloseButton.style('position', 'absolute');
@@ -48,20 +49,24 @@ function showNameNote(){
     });
 
     nameNote.draggable();
+    
 }
 
+
+
 function setup() {
-    createCanvas(windowWidth, windowHeight);
+    let mainCanvas = createCanvas(windowWidth, windowHeight);
 
-
-    testBtn = createButton('Show Name');
-    testBtn.mousePressed(() => {
+    showNameBtn = createButton('Show Name');
+    showNameBtn.size(100, 40);
+    showNameBtn.position(10, 10);
+    
+    showNameBtn.mousePressed(() => {
         console.log('hit test button');
         console.log(isNameNoteOn);
         isNameNoteOn = true;
-});
+    });
     
-  
     showNameNote();
 
 
@@ -78,14 +83,11 @@ function setup() {
 
 function draw() {
   background(220);
-//   text(name, windowWidth/2, windowHeight/2);
   text(name, width/2, height/2);
 
 
   background(0);
   fill(255);
-
-//   nameNoteText.style('left')
 
     if(isNameNoteOn){
         nameNote.show();
