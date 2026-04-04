@@ -15,11 +15,13 @@ let speed = 0.6;
 let showNameBtn;
 
 class Node {
-    constructor(x, y, width, height, label, content) {
+    constructor(x, y, width, height, label, content, contentScroll, category) {
         this.el = createDiv(label);
+        this.category = category;
         this.el.position(x, y);
         this.el.size(width, height);
         this.isNodeOn = true;
+        this.isContentScrolling = contentScroll;
 
         this.xPos = 0;
         this.textSpeed = 0.6;
@@ -46,8 +48,8 @@ class Node {
 
         this.contentText = createP(content);
         this.contentText.style('color', 'white');
-        this.contentText.style('position', 'absolute');
-        this.contentText.style('white-space', 'nowrap');
+        
+        
         this.contentText.parent(this.el);
 
         this.el.draggable();
@@ -64,12 +66,19 @@ class Node {
     }
 
     showContent(){
-        this.xPos -= this.textSpeed;
-        let textWidth = this.contentText.width;
-        if(this.xPos < -textWidth){
-            this.xPos = this.el.width;
+        if(this.isContentScrolling){
+            this.xPos -= this.textSpeed;
+            let textWidth = this.contentText.width;
+            if(this.xPos < -textWidth){
+                this.xPos = this.el.width;
+            }
+            this.contentText.style('position', 'absolute');
+            this.contentText.style('white-space', 'nowrap');
+            this.contentText.style('left', `${this.xPos}px`);
+        } else {
+            
         }
-        this.contentText.style('left', `${this.xPos}px`);
+
     }
 }
 
@@ -130,9 +139,24 @@ function setup() {
     
     // showNameNote();
 
-    let nameNode = new Node(500, 20, 300, 100, "Fihra", "Creative Technologist | Game Audio | Rondalla & Kulintang Musician | Composer");
+    let nameNode = new Node(500, 20, 300, 100, "Fihra", "Creative Technologist | Game Audio | Rondalla & Kulintang Musician | Composer", true, "name");
+
+    let aboutNode = new Node(300, 300, 300, 300, "About", "Hi I'm Fihra, nice to meet you!", false, "about");
 
     allNodes.push(nameNode);
+    allNodes.push(aboutNode);
+
+    for(let i = 0; i < allNodes.length; i++){
+        let uiButton = createButton(allNodes[i].category);
+        uiButton.size(100, 40);
+        uiButton.position(i* 120, 10);
+
+        uiButton.mousePressed(() => {
+            allNodes[i].isNodeOn = true;
+        });
+    }
+
+
 
 //   const hCanvas = document.getElementById("hydra-canvas");
 //   hCanvas.width = windowWidth;
@@ -164,6 +188,10 @@ function draw() {
             allNodes[i].showInlet();
             allNodes[i].showContent();
         }
+
+        // let uiButton = createButton(allNodes[i].category);
+        // uiButton.size(100, 80);
+
     }
 
     // if(isNameNoteOn){
