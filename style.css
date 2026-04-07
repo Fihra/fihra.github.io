@@ -1,3 +1,7 @@
+:root {
+  --green-color: green;
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -5,4 +9,77 @@ html, body {
 }
 canvas {
   display: block;
+}
+
+.nav-btn {
+  background: transparent;
+  border: none;
+  position: relative;
+  /* border-top: 5px solid green;
+  border-left: 5px solid green;
+  border-right: 5px solid green;
+  border-bottom: 5px solid green; */
+  /* clip-path: inset(0 50% 0 0); */
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  font: inherit;
+  color: white;
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  
+  /* mask: 
+    conic-gradient(#fff 0 0) content-box; */
+    /* conic-gradient() */
+}
+
+.nav-btn p {
+  margin-top: 5px;
+}
+
+.nav-btn::before,
+.nav-btn::after {
+  position: absolute;
+  width: 50px;
+  height: 20px;
+  content: "";
+}
+
+.nav-btn:hover::before {
+  left: 0;
+  top: 0;
+  border-left: 3px solid var(--green-color);
+  border-top: 3px solid var(--green-color);
+  animation: hover-nav-left 0.25s ease-in forwards;
+}
+
+.nav-btn:hover::after{
+  right: 0;
+  bottom: 0;
+  border-right: 3px solid var(--green-color);
+  border-bottom: 3px solid var(--green-color);
+  animation: hover-nav-right 0.25s ease-in forwards;
+}
+
+@keyframes hover-nav-left {
+  from { 
+    transform: translateY(50%); 
+    opacity: 0;
+    transform: translateX(100%);
+  }
+  to { transform: translateX(0); opacity: 1;}
+}
+
+@keyframes hover-nav-right {
+  from { 
+    transform: translateY(-50%); 
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to { transform: translateX(0); opacity: 1;}
+}
+
+.nav-btn:active {
+  color: red;
 }
