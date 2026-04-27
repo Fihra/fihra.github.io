@@ -30,13 +30,25 @@ class Node {
         this.closeButton.mousePressed(() => this.onClose());
 
 
-        this.contentText = createP(content);
+        this.contentText = (typeof content === "string" && content.startsWith("http"))? this.setupIFrame(content) : createP(content);
         this.contentText.style('color', 'white');
         
         
         this.contentText.parent(this.el);
 
         this.el.draggable();
+    }
+
+    setupIFrame(content) {
+        let myIframe = createElement("iframe");
+
+        myIframe.attribute('src', content);
+        myIframe.attribute("width", "100%");
+        myIframe.attribute("height", "420");
+        myIframe.attribute('frameborder', '0');
+        myIframe.attribute("allow", "autoplay; microphone");
+        myIframe.style("display", "block");
+        return myIframe;
     }
 
     onClose(){
