@@ -30,7 +30,10 @@ class Node {
         this.closeButton.mousePressed(() => this.onClose());
 
 
-        this.contentText = (typeof content === "string" && content.startsWith("http"))? this.setupIFrame(content) : createP(content);
+        // this.contentText = (typeof content === "string" && content.startsWith("http"))? this.setupIFrame(content) : createP(content);
+        
+        this.contentText = this.checkContent(content);
+
         this.contentText.style('color', 'white');
         
         
@@ -38,6 +41,35 @@ class Node {
 
         this.el.draggable();
     }
+
+    // <i class="fa-brands fa-linkedin-in"></i>
+
+    checkContent(content) {
+        console.log("inside checkContent");
+
+        if(this.category === "contact"){
+            let newContent = `
+            <a href="https://instagram.com" target="_blank"><i class="fa fa-instagram" style="font-size:36px"></i></a>
+            <a href="https://linkedin.com" target="_blank"><i class="fa-brands fa-linkedin" style="font-size:36px"></i></a>
+            `;
+            return createP(newContent);
+        }
+
+        if(typeof content === "string" && content.startsWith("http")) {
+            return this.setupIFrame(content);
+        } else {
+            return createP(content);
+        }
+
+    }
+
+    // checkContent(content){
+    //     if(this.category === "contact"){
+    //         console.log("hiel?");
+    //         this.contentText = "hi hi ";
+    //     }
+    //     createP(content);
+    // }
 
     setupIFrame(content) {
         let myIframe = createElement("iframe");
@@ -57,11 +89,18 @@ class Node {
         this.isNodeOn = false;
     }
 
-    showInlet(){
-        rect(this.el.position().x, this.el.position().y + 100, 20, 20, 1);
+    showOutlet(){
+        if(this.category === "about"){
+            console.log("the x: ", this.el.position().x);
+            console.log("the y: ", this.el.position().y);
+        }
+
+        rect(this.el.position().x, this.el.position().y + 100, 50, 100, 1);
     }
 
     showContent(){
+
+
         if(this.isContentScrolling){
             this.xPos -= this.textSpeed;
             let textWidth = this.contentText.width;
@@ -71,9 +110,7 @@ class Node {
             this.contentText.style('position', 'absolute');
             this.contentText.style('white-space', 'nowrap');
             this.contentText.style('left', `${this.xPos}px`);
-        } else {
-            
-        }
+        } 
 
     }
 }
