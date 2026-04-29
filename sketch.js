@@ -61,6 +61,8 @@ function setup() {
     strudelUIButton.addClass("nav-btn");
 
     let strudelButtonText = createP("more strudel");
+    strudelButtonText.style("margin-top", "7px");
+    strudelButtonText.style('font-size', "12px");
     strudelButtonText.parent(strudelUIButton);
 
     strudelUIButton.mousePressed(() => {
@@ -80,11 +82,6 @@ function setup() {
 //   hydra.s0.init({ src: p5Canvas.elt});
 }
 
-function outlet(element){
-    console.log("element: ", element);
-    rect(element.x, element.y, 100, 20, 20, 1);
-}
-
 function draw() {
   background(220);
   text(name, width/2, height/2);
@@ -96,6 +93,7 @@ function draw() {
     for(let i = 0; i < allNodes.length; i++){
         if(allNodes[i].isNodeOn){
             allNodes[i].el.show();
+            allNodes[i].showInlet();
             allNodes[i].showOutlet();
             allNodes[i].showContent();
         }

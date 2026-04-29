@@ -89,13 +89,14 @@ class Node {
         this.isNodeOn = false;
     }
 
-    showOutlet(){
-        if(this.category === "about"){
-            console.log("the x: ", this.el.position().x);
-            console.log("the y: ", this.el.position().y);
-        }
+    showInlet(){
+        if(this.category !== "name"){
+            rect(this.el.position().x, this.el.position().y - 5, 20, 10, 1);
+        }      
+    }
 
-        rect(this.el.position().x, this.el.position().y + 100, 50, 100, 1);
+    showOutlet(){
+        rect(this.el.position().x, this.el.position().y + this.el.height, 20, 20, 1);
     }
 
     showContent(){
