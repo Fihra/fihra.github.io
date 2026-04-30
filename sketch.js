@@ -1,6 +1,6 @@
 let name = "Fihra";
 // let hydra;
-let aboutSection = "Welcome to my digital garden. I do creative coding and music/audio."
+let aboutSection = "Welcome to my digital garden. I do creative coding & music/audio."
 
 let allNodes = [];
 
@@ -9,9 +9,18 @@ let lastNodePosition;
 // U+
 const emailIcon = "\u{02709}";
 
-function setup() {
+let socialMedias;
+
+async function setup() {
     createCanvas(windowWidth, windowHeight);
 
+    socialMedias = [
+        {"url": "https://www.instagram.com/fihra.creates/", "icon": "images/instagram-brand.svg", "name": "instagram"},
+        {"url": "https://www.linkedin.com/in/fabian-fabro/", "icon": "images/linkedin-brand.svg", "name": "linkedIn"},
+        // {"url": "https://tiktok.com", "icon": "images/tiktok-brand.svg", "name": "tiktok"}
+    ]
+
+    // console.log(socialMedias);
     let strudelCode = "https://strudel.cc/#CnNldGNwbSgxNDAvNCkKCmNvbnN0IGNNaW5vciA9ICgiYzptaW5vciIpCgpsZXQgc2VxdWVuY2VBID0gYAogIDxDNCBFYjQgRzQgQmI0CiAgRjQgRzQgQmI0IEM1PgogIDxENSBDNSBCYjQgRzQKICBBYjQgRjQgRzQgQmI0PgpgCgpsZXQgYmFzc05vdGVzID1gCiAgW0MyIC0gLSBDMiAtIC0gQzIgLV0KYAoKCiRtZWxvZHk6bm90ZShzZXF1ZW5jZUEpLmZhc3QoMikuc2VnbWVudCg4KS5zb3VuZCgicGlhbm8iKS5fcGlhbm9yb2xsKCkKCiRiYXNzOm5vdGUoYmFzc05vdGVzKS5zb3VuZCgicGlhbm8iKS5fcGlhbm9yb2xsKCkKCgokOnNvdW5kKCJoaCIpLmJlYXQoIjAsIDEsIDQsIDYsIDcsIDgsIDEwLCAxMSwgMTMsIDE1IiwgMTYpLl9zY29wZSgpCgokOnNvdW5kKCJzZCIpLmJlYXQoIjIsIDMuNSwgNi41IiwgOCkuZGVsYXkoMC40NSkuX3Njb3BlKCkKCgokOnNvdW5kKCJiZCIpLmJlYXQoIjAsIDIsIDQsIDUuNCwgNyIsIDgpLl9zY29wZSgp";
 
     let nameNode = new Node(500, 70, 300, 100, "Fihra", "Creative Technologist | Game Audio | Rondalla & Kulintang Musician | Composer", true, "name");
@@ -22,7 +31,7 @@ function setup() {
 
     let strudelNode = new Node(500, 400, 400, 400, "Strudel", strudelCode, false, "strudel");
 
-    let contactNode = new Node(100, 100, 200, 100, "Contact", "Email, LinkedIn, IG, TikTok", false, "contact");
+    let contactNode = new Node(100, 100, 120, 80, "Contact", socialMedias, false, "contact");
 
     // let contactNode = new Node(100, 100, 200, 100, "Contact", `
 
