@@ -77,6 +77,24 @@ class Node {
             return container;
         }
 
+        if(this.category === "music"){
+            let container = createDiv();
+            container.style("width", "100%");
+
+            let frame = createElement("iframe");
+            frame.attribute("src", content.src);
+            frame.attribute("seamless", "");
+            frame.attribute("width", "100%");
+            frame.attribute("height", "42px");
+            frame.style("border", "0");
+            frame.style("display", "block");
+            frame.style("margin-bottom", "6px");
+            frame.parent(container);
+
+            return container;
+
+        }
+
         if(typeof content === "string" && content.startsWith("http")) {
             return this.setupIFrame(content);
         } else {

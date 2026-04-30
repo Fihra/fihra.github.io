@@ -27,8 +27,9 @@ async function setup() {
         // {"url": "https://tiktok.com", "icon": "images/tiktok-brand.svg", "name": "tiktok"}
     ]
 
-    // console.log(socialMedias);
     let strudelCode = "https://strudel.cc/#CnNldGNwbSgxNDAvNCkKCmNvbnN0IGNNaW5vciA9ICgiYzptaW5vciIpCgpsZXQgc2VxdWVuY2VBID0gYAogIDxDNCBFYjQgRzQgQmI0CiAgRjQgRzQgQmI0IEM1PgogIDxENSBDNSBCYjQgRzQKICBBYjQgRjQgRzQgQmI0PgpgCgpsZXQgYmFzc05vdGVzID1gCiAgW0MyIC0gLSBDMiAtIC0gQzIgLV0KYAoKCiRtZWxvZHk6bm90ZShzZXF1ZW5jZUEpLmZhc3QoMikuc2VnbWVudCg4KS5zb3VuZCgicGlhbm8iKS5fcGlhbm9yb2xsKCkKCiRiYXNzOm5vdGUoYmFzc05vdGVzKS5zb3VuZCgicGlhbm8iKS5fcGlhbm9yb2xsKCkKCgokOnNvdW5kKCJoaCIpLmJlYXQoIjAsIDEsIDQsIDYsIDcsIDgsIDEwLCAxMSwgMTMsIDE1IiwgMTYpLl9zY29wZSgpCgokOnNvdW5kKCJzZCIpLmJlYXQoIjIsIDMuNSwgNi41IiwgOCkuZGVsYXkoMC40NSkuX3Njb3BlKCkKCgokOnNvdW5kKCJiZCIpLmJlYXQoIjAsIDIsIDQsIDUuNCwgNyIsIDgpLl9zY29wZSgp";
+
+    let bandcampMusic = {title: "Never Good Enough by FirahFabe", src: "https://bandcamp.com/EmbeddedPlayer/album=509225415/size=small/bgcol=333333/linkcol=2ebd35/transparent=true/", link: "https://firahfabe.bandcamp.com/album/never-good-enough"};
 
     let nameNode = new Node(500, 70, 300, 100, "Fihra", "Creative Technologist | Game Audio | Rondalla & Kulintang Musician | Composer", true, "name");
 
@@ -36,7 +37,7 @@ async function setup() {
 
     let projectsNode = new Node(800, 100, 500, 400, "Projects", "under construction", false, "projects");
 
-    let musicNode = new Node(100, 400, 100, 100, "Music", "Music Player", false, "music");
+    let musicNode = new Node(100, 400, 400, 100, "Music", bandcampMusic, false, "music");
 
     let strudelNode = new Node(800, 400, 400, 400, "Strudel", strudelCode, false, "strudel");
 
