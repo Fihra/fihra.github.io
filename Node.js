@@ -11,6 +11,7 @@ class Node {
         this.textSpeed = 0.6;
 
         this.el.style('border', '2px solid #ccc');
+        // this.el.style("box-sizing", "border-box");
         this.el.style('box-shadow', '5px 5px 15px rgba(0,0,0,0.3)');
         this.el.style('font-size', '20px');
         this.el.style('background', 'green');
@@ -22,13 +23,20 @@ class Node {
         this.closeButton.parent(this.el);
         this.closeButton.style('background-color', 'red');
         this.closeButton.style('color', 'black');
-        this.closeButton.style('position', 'absolute');
-        this.closeButton.style('left', '94%');
-        this.closeButton.style('padding', '3px 3px');
+        this.closeButton.style('padding', '2px 2px');
         this.closeButton.style('border-radius', '5px');
+        this.closeButton.position(width - 10, 5);
 
         this.closeButton.mousePressed(() => this.onClose());
 
+        this.titleBar = createDiv();
+        this.titleBar.parent(this.el);
+        this.titleBar.style("width", "calc(100% + 12px)");
+        this.titleBar.style("height", "2px");
+        this.titleBar.style("background", "#ccc");
+        this.titleBar.style("margin-top", "4px");
+        this.titleBar.style("margin-left", "-5px");
+        this.titleBar.style("margin-right", "-5px");
 
         // this.contentText = (typeof content === "string" && content.startsWith("http"))? this.setupIFrame(content) : createP(content);
         
@@ -42,17 +50,27 @@ class Node {
         this.el.draggable();
     }
 
-    // <i class="fa-brands fa-linkedin-in"></i>
 
     checkContent(content) {
         console.log("inside checkContent");
 
         if(this.category === "contact"){
-            let newContent = `
-            <a href="https://instagram.com" target="_blank"><i class="fa fa-instagram" style="font-size:36px"></i></a>
-            <a href="https://linkedin.com" target="_blank"><i class="fa-brands fa-linkedin" style="font-size:36px"></i></a>
-            `;
-            return createP(newContent);
+            let container = createDiv();
+
+            for(let sm of content){
+                let link = createElement("a");
+                link.attribute("href", sm.url);
+                link.attribute("target", "_blank");
+
+                let icon = createImg(sm.icon, sm.name);
+                icon.size(36, 36);
+                icon.style("display", "inline-block");
+                icon.style("margin", "5px");
+                icon.parent(link);
+                link.parent(container);
+                
+            }
+            return container;
         }
 
         if(typeof content === "string" && content.startsWith("http")) {
@@ -62,14 +80,6 @@ class Node {
         }
 
     }
-
-    // checkContent(content){
-    //     if(this.category === "contact"){
-    //         console.log("hiel?");
-    //         this.contentText = "hi hi ";
-    //     }
-    //     createP(content);
-    // }
 
     setupIFrame(content) {
         let myIframe = createElement("iframe");
@@ -100,8 +110,6 @@ class Node {
     }
 
     showContent(){
-
-
         if(this.isContentScrolling){
             this.xPos -= this.textSpeed;
             let textWidth = this.contentText.width;
