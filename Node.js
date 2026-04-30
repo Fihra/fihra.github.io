@@ -17,7 +17,7 @@ class Node {
         this.el.style('background', 'green');
         this.el.style('color', 'white');
         this.el.style('padding', '5px');
-        this.el.style('overflow', 'hidden');
+        this.el.style('overflow', this.category === "projects" ?  "auto" :'hidden');
 
         this.closeButton = createButton('X');
         this.closeButton.parent(this.el);
@@ -56,8 +56,6 @@ class Node {
 
 
     checkContent(content) {
-        console.log("inside checkContent");
-
         if(this.category === "contact"){
             let container = createDiv();
 
@@ -93,6 +91,25 @@ class Node {
 
             return container;
 
+        }
+
+        if(this.category === "projects"){
+            let container = createDiv();
+
+            for(let project of content.projects){
+                let projectDiv = createDiv();
+
+                let header = createElement("h4", project.title);
+                let description = createP(project.description);
+
+                header.parent(projectDiv);
+                description.parent(projectDiv);
+
+                projectDiv.parent(container);
+
+                // console.log(project);
+            }
+            return container;
         }
 
         if(typeof content === "string" && content.startsWith("http")) {
