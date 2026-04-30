@@ -34,14 +34,17 @@ async function setup() {
 
     let aboutNode = new Node(300, 300, 300, 150, "About", aboutSection, false, "about");
 
+    let projectsNode = new Node(800, 100, 500, 400, "Projects", "under construction", false, "projects");
+
     let musicNode = new Node(100, 400, 100, 100, "Music", "Music Player", false, "music");
 
-    let strudelNode = new Node(500, 400, 400, 400, "Strudel", strudelCode, false, "strudel");
+    let strudelNode = new Node(800, 400, 400, 400, "Strudel", strudelCode, false, "strudel");
 
     let contactNode = new Node(100, 100, 120, 80, "Contact", socialMedias, false, "contact");
 
     allNodes.push(nameNode);
     allNodes.push(aboutNode);
+    allNodes.push(projectsNode);
     allNodes.push(musicNode);
     allNodes.push(strudelNode);
     allNodes.push(contactNode);
