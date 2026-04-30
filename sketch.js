@@ -4,12 +4,12 @@ let title = "F              i             h              r             a        
 let aboutSection = "Welcome to my digital garden. I do creative coding & music/audio."
 
 let allNodes = [];
+let projectsData;
 
 let lastNodePosition;
 
 let cables = [];
 let draggableCable = null;
-
 
 let socialMedias;
 
@@ -20,6 +20,8 @@ let endX, endY;
 
 async function setup() {
     createCanvas(windowWidth, windowHeight);
+
+    projectsData = await loadJSON("data.json");
 
     socialMedias = [
         {"url": "https://www.instagram.com/fihra.creates/", "icon": "images/instagram-brand.svg", "name": "instagram"},
@@ -35,7 +37,7 @@ async function setup() {
 
     let aboutNode = new Node(300, 300, 300, 150, "About", aboutSection, false, "about");
 
-    let projectsNode = new Node(800, 100, 500, 400, "Projects", "under construction", false, "projects");
+    let projectsNode = new Node(800, 100, 500, 400, "Projects", projectsData, false, "projects");
 
     let musicNode = new Node(100, 400, 400, 100, "Music", bandcampMusic, false, "music");
 
