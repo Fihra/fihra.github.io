@@ -1,4 +1,5 @@
 let name = "Fihra";
+let title = "F              i             h              r             a            ";
 // let hydra;
 let aboutSection = "Welcome to my digital garden. I do creative coding & music/audio."
 
@@ -6,10 +7,16 @@ let allNodes = [];
 
 let lastNodePosition;
 
-// U+
-const emailIcon = "\u{02709}";
+let cables = [];
+let draggableCable = null;
+
 
 let socialMedias;
+
+let isDrawing = false;
+let lastDrawingState = isDrawing;
+let startX, startY;
+let endX, endY;
 
 async function setup() {
     createCanvas(windowWidth, windowHeight);
@@ -33,11 +40,6 @@ async function setup() {
 
     let contactNode = new Node(100, 100, 120, 80, "Contact", socialMedias, false, "contact");
 
-    // let contactNode = new Node(100, 100, 200, 100, "Contact", `
-
-    //         <a "href="https://instagram.com"><i class="fa fa-instagram" style="font-size:36px"></i></a>
-    //     `, false, "contact");
-
     allNodes.push(nameNode);
     allNodes.push(aboutNode);
     allNodes.push(musicNode);
@@ -45,9 +47,7 @@ async function setup() {
     allNodes.push(contactNode);
 
     for(let i = 0; i < allNodes.length; i++){
-        // console.log("i: ", i);
         if(i + 1 === allNodes.length){
-            // console.log("hit");
             lastNodePosition = {x: (i + 1) * 120 + 20, y: 10};
         }
         let uiButton = createDiv();
@@ -95,9 +95,21 @@ function draw() {
   background(220);
   text(name, width/2, height/2);
 
+  let firstChar = title.charAt(0);
+  let remainingText = title.substring(1);
+  title = remainingText + firstChar;
+
+  document.title = title;
 
   background(0);
   fill(255);
+
+  if(isDrawing){
+    stroke(255);
+    strokeWeight(5);
+    // line(pmouseX, pmouseY, mouseX, mouseY);
+    line(startX, startY, mouseX, mouseY);
+  }
 
     for(let i = 0; i < allNodes.length; i++){
         if(allNodes[i].isNodeOn){
@@ -119,4 +131,47 @@ function draw() {
 
 function windowResized(){
     resizeCanvas(windowWidth, windowHeight);
+}
+
+function mousePressed(){
+
+
+    console.log("startX: ", startX);
+    console.log("startY: ", startY);
+
+
+    for(let i = 0; i <allNodes.length; i++){
+        if(allNodes[i].isNodeOn){
+            if(allNodes[i].isOnInlet){
+                lastIsDrawing = isDrawing;
+                isDrawing = !isDrawing;
+
+
+                if(lastIsDrawing){ 
+                    console.log("finished line");
+                    endX = mouseX;
+                    endY = mouseY;
+
+                    let mainOutletPosition = {x: allNodes[i].el.position().x, y: allNodes[i].el.position + allNodes[i].el.height};
+                    // console.log(`Starting: ${startX}, ${startY}`);
+                    console.log("mainInletPosition: ", mainOutletPosition);
+
+                }
+
+
+                if(isDrawing){
+                    startX = mouseX;
+                    startY = mouseY;
+                    let mainInletPosition = {x: allNodes[i].el.position().x, y: allNodes[i].el.position().y};
+                    // console.log(`Starting: ${startX}, ${startY}`);
+                    console.log("mainInletPosition: ", mainInletPosition);
+                }
+
+
+
+                console.log("mouse is on inlet");
+                console.log("is drwaing: ", isDrawing);
+            }
+        }
+    }
 }

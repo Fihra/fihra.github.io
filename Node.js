@@ -41,11 +41,15 @@ class Node {
         // this.contentText = (typeof content === "string" && content.startsWith("http"))? this.setupIFrame(content) : createP(content);
         
         this.contentText = this.checkContent(content);
-
         this.contentText.style('color', 'white');
-        
-        
         this.contentText.parent(this.el);
+
+        this.isLineDrawing = false;
+        this.isOnInlet = false;
+        this.isOnOutlet = false;
+
+        this.inletPosition = {x: this.el.position().x, y: this.el.position().y - 5, width: 20, height: 10};
+        this.outletPosition = {x: this.el.position().x, y: this.el.position().y + this.el.height, width: 20, height: 20};
 
         this.el.draggable();
     }
@@ -101,11 +105,29 @@ class Node {
 
     showInlet(){
         if(this.category !== "name"){
+            if(mouseX > this.el.position().x && mouseX < this.el.position().x + 20 && mouseY > this.el.position().y - 20 && mouseY < this.el.position().y + 20) {
+                fill("red");
+                stroke(20);
+                this.isOnInlet = true;
+
+            } else {
+                fill("blue");
+                stroke(20);
+                this.isOnInlet = false;
+            }
             rect(this.el.position().x, this.el.position().y - 5, 20, 10, 1);
         }      
     }
 
     showOutlet(){
+        if(mouseX > this.el.position().x && mouseX < this.el.position().x + 20 && mouseY > this.el.position().y - 20 && mouseY < this.el.position().y + this.el.height) {
+            fill("green");
+            this.isOnOutlet = true;
+        } else {
+            fill("orange");
+            this.isOnOutlet = false;
+        }
+        // fill("white");
         rect(this.el.position().x, this.el.position().y + this.el.height, 20, 20, 1);
     }
 
