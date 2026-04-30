@@ -1,0 +1,32 @@
+{
+    "projects": [
+        {
+            "title": "untitled",
+            "image": "placeholder image",
+            "description": "Placeholder description text shall go over here to read about.",
+            "websiteLink": "https://google.com",
+            "githubLink": "https://github.com"
+        },
+        {
+            "title": "untitled 2",
+            "image": "placeholder image",
+            "description": "Placeholder description text shall go over here to read about.",
+            "websiteLink": "https://google.com",
+            "githubLink": "https://github.com"
+        }, 
+        {
+            "title": "untitled 3",
+            "image": "placeholder image",
+            "description": "Placeholder description text shall go over here to read about.",
+            "websiteLink": "https://google.com",
+            "githubLink": "https://github.com"
+        },
+        {
+            "title": "untitled 4",
+            "image": "placeholder image",
+            "description": "Placeholder description text shall go over here to read about.",
+            "websiteLink": "https://google.com",
+            "githubLink": "https://github.com"
+        }
+    ]
+}
