@@ -138,6 +138,20 @@ class Node {
         this.isNodeOn = false;
     }
 
+    getInletPos(){
+        return {
+            x: this.el.position().x + 10,
+            y: this.el.position().y - 5
+        };
+    }
+
+    getOutletPos(){
+        return{
+            x: this.el.position().x + 10,
+            y: this.el.position().y + this.el.height + 10
+        };
+    }
+
     showInlet(){
         if(this.category !== "name"){
             if(mouseX > this.el.position().x && mouseX < this.el.position().x + 20 && mouseY > this.el.position().y - 20 && mouseY < this.el.position().y + 20) {
@@ -155,15 +169,24 @@ class Node {
     }
 
     showOutlet(){
-        if(mouseX > this.el.position().x && mouseX < this.el.position().x + 20 && mouseY > this.el.position().y - 20 && mouseY < this.el.position().y + this.el.height) {
+        const p = this.getOutletPos();
+        if(mouseX > p.x - 10 && mouseX < p.x + 19 && mouseY > p.y - 10 && mouseY < p.y + 10){
             fill("green");
             this.isOnOutlet = true;
         } else {
             fill("orange");
             this.isOnOutlet = false;
         }
-        // fill("white");
         rect(this.el.position().x, this.el.position().y + this.el.height, 20, 20, 1);
+
+        // if(mouseX > this.el.position().x && mouseX < this.el.position().x + 20 && mouseY > this.el.position().y - 20 && mouseY < this.el.position().y + this.el.height) {
+        //     fill("green");
+        //     this.isOnOutlet = true;
+        // } else {
+        //     fill("orange");
+        //     this.isOnOutlet = false;
+        // }
+        // rect(this.el.position().x, this.el.position().y + this.el.height, 20, 20, 1);
     }
 
     showContent(){

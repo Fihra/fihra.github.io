@@ -10,6 +10,7 @@ let lastNodePosition;
 
 let cables = [];
 let draggableCable = null;
+let draggingFrom = null;
 
 let socialMedias;
 
@@ -110,11 +111,32 @@ function draw() {
   background(0);
   fill(255);
 
+  if(navigator.mediaSession.playbackState === "playing"){
+    console.log("media is active");
+  }
+
+
+  for(let cable of cables){
+    if(cable.from.isNodeOn && cable.to.isNodeOn){
+        let a = cable.from.getOutletPos();
+        let b = cable.to.getInletPos();
+        stroke(255);
+        strokeWeight(2);
+        noFill();
+        bezier(a.x, a.y, a.x, a.y + 60, b.x, b.y - 60, b.x, b.y);
+    }
+  }
+
+
   if(isDrawing){
-    stroke(255);
-    strokeWeight(5);
+    // stroke(255);
+    stroke(255, 200, 0);
+    strokeWeight(2);
+    noFill();
+    bezier(startX, startY, startX, startY + 60, mouseX, mouseY - 60, mouseX, mouseY);
+
     // line(pmouseX, pmouseY, mouseX, mouseY);
-    line(startX, startY, mouseX, mouseY);
+    // line(startX, startY, mouseX, mouseY);
   }
 
     for(let i = 0; i < allNodes.length; i++){
@@ -140,44 +162,75 @@ function windowResized(){
 }
 
 function mousePressed(){
-
-
-    console.log("startX: ", startX);
-    console.log("startY: ", startY);
-
-
-    for(let i = 0; i <allNodes.length; i++){
-        if(allNodes[i].isNodeOn){
-            if(allNodes[i].isOnInlet){
-                lastIsDrawing = isDrawing;
-                isDrawing = !isDrawing;
-
-
-                if(lastIsDrawing){ 
-                    console.log("finished line");
-                    endX = mouseX;
-                    endY = mouseY;
-
-                    let mainOutletPosition = {x: allNodes[i].el.position().x, y: allNodes[i].el.position + allNodes[i].el.height};
-                    // console.log(`Starting: ${startX}, ${startY}`);
-                    console.log("mainInletPosition: ", mainOutletPosition);
-
-                }
-
-
-                if(isDrawing){
-                    startX = mouseX;
-                    startY = mouseY;
-                    let mainInletPosition = {x: allNodes[i].el.position().x, y: allNodes[i].el.position().y};
-                    // console.log(`Starting: ${startX}, ${startY}`);
-                    console.log("mainInletPosition: ", mainInletPosition);
-                }
-
-
-
-                console.log("mouse is on inlet");
-                console.log("is drwaing: ", isDrawing);
-            }
+    for(let i = 0; i < allNodes.length; i++) {
+        if(allNodes[i].isNodeOn && allNodes[i].isOnOutlet){
+            draggingFrom = allNodes[i];
+            startX = allNodes[i].getOutletPos().x;
+            startY = allNodes[i].getOutletPos().y;
+            isDrawing = true;
         }
     }
 }
+
+function mouseReleased(){
+    if(!isDrawing || !draggingFrom) return;
+
+    for(let i = 0; i < allNodes.length; i++){
+        let target = allNodes[i];
+        if(target === draggingFrom) continue;
+        if(!target.isNodeOn) continue;
+        if(target.category === "name") continue;
+
+        let inlet = target.getInletPos();
+
+        if(dist(mouseX, mouseY, inlet.x, inlet.y) < 20) {
+            cables.push({ from: draggingFrom, to: target});
+            break;
+        }
+    }
+    isDrawing = false;
+    draggingFrom = null;
+}
+
+// function mousePressed(){
+
+
+//     console.log("startX: ", startX);
+//     console.log("startY: ", startY);
+
+
+//     for(let i = 0; i <allNodes.length; i++){
+//         if(allNodes[i].isNodeOn){
+//             if(allNodes[i].isOnInlet){
+//                 lastIsDrawing = isDrawing;
+//                 isDrawing = !isDrawing;
+
+
+//                 if(lastIsDrawing){ 
+//                     console.log("finished line");
+//                     endX = mouseX;
+//                     endY = mouseY;
+
+//                     let mainOutletPosition = {x: allNodes[i].el.position().x, y: allNodes[i].el.position + allNodes[i].el.height};
+//                     // console.log(`Starting: ${startX}, ${startY}`);
+//                     console.log("mainInletPosition: ", mainOutletPosition);
+
+//                 }
+
+
+//                 if(isDrawing){
+//                     startX = mouseX;
+//                     startY = mouseY;
+//                     let mainInletPosition = {x: allNodes[i].el.position().x, y: allNodes[i].el.position().y};
+//                     // console.log(`Starting: ${startX}, ${startY}`);
+//                     console.log("mainInletPosition: ", mainInletPosition);
+//                 }
+
+
+
+//                 console.log("mouse is on inlet");
+//                 console.log("is drwaing: ", isDrawing);
+//             }
+//         }
+//     }
+// }
