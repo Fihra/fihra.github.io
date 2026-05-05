@@ -99,6 +99,8 @@ class Node {
             for(let project of content.projects){
                 let projectDiv = createDiv();
 
+                console.log("project: ", project);
+
                 let header = createElement("h4", project.title);
                 let description = createP(project.description);
 

@@ -1,11 +1,11 @@
 {
     "projects": [
         {
-            "title": "untitled",
-            "image": "placeholder image",
-            "description": "Placeholder description text shall go over here to read about.",
-            "websiteLink": "https://google.com",
-            "githubLink": "https://github.com"
+            "title": "Makinang na Kulintang",
+            "image": "/kulintang-web.png",
+            "description": "A web instrument of a traditional Filipino gong set instrument called the Kulintang.",
+            "websiteLink": "https://kulintang-web.onrender.com/",
+            "githubLink": ""
         },
         {
             "title": "untitled 2",
