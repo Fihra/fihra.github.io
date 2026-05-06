@@ -15,18 +15,18 @@
             "githubLink": ""
         }, 
         {
-            "title": "untitled 3",
-            "image": "placeholder image",
-            "description": "Placeholder description text shall go over here to read about.",
-            "websiteLink": "https://google.com",
-            "githubLink": "https://github.com"
+            "title": "Saranay VST",
+            "image": "/images/Saranay_VST.png",
+            "description": "A VST instrument plugin in Kontakt. The Saranay is a smaller version of its predecessor, Kulintang, from Mindanao Philippines",
+            "websiteLink": "https://firahfabe.itch.io/saranay-vst",
+            "githubLink": ""
         },
         {
-            "title": "untitled 4",
-            "image": "placeholder image",
-            "description": "Placeholder description text shall go over here to read about.",
-            "websiteLink": "https://google.com",
-            "githubLink": "https://github.com"
+            "title": "Feel the Beat Critter",
+            "image": "/images/feel_the_beat_critter.png",
+            "description": "A small music player with a Soundcloud-like waveform visualizer and a dancing critter to the beat.",
+            "websiteLink": "https://fihra.github.io/feel-the-beat-critter/",
+            "githubLink": ""
         }
     ]
 }

@@ -163,6 +163,7 @@ class Node {
                 projectIcon.size(36, 36);
                 projectIcon.style("filter", "invert(1)");
                 projectIcon.style("display", "inline-block");
+                projectIcon.style("margin-top", "-10px");
                 projectIcon.style("margin", "5px");
                 projectIcon.parent(projectLink);
                 projectLink.parent(header);

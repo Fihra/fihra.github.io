@@ -26,8 +26,16 @@ let lastBeat = 0;
 
 let beatSize = 0;
 
+function contextMenu(event){
+    event.preventDefault();
+
+    console.log("hi");
+}
+
 async function setup() {
     createCanvas(windowWidth, windowHeight);
+
+    document.addEventListener("contextmenu", contextMenu);
 
     projectsData = await loadJSON("data.json");
 
@@ -268,3 +276,4 @@ function mouseReleased(){
     isDrawing = false;
     draggingFrom = null;
 }
+
