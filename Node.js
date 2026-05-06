@@ -140,15 +140,39 @@ class Node {
 
                 console.log("project: ", project);
 
+
+
+
                 let header = createElement("h4", project.title);
                 let description = createP(project.description);
+
+                let projectImg = createImg(project.image, project.name);
+                projectImg.size(400, 200);
+                projectImg.style("width", "60%");
+                // projectImg.style("display", "inline-block");
+                projectImg.style("margin", "5px");
+                projectImg.parent(projectDiv);
+
+                
+
+                let projectLink = createElement("a");
+                projectLink.attribute("href", project.websiteLink);
+                projectLink.attribute("target", "_blank");
+
+                let projectIcon = createImg("/images/link-solid-full.svg", project.title);
+                projectIcon.size(36, 36);
+                projectIcon.style("filter", "invert(1)");
+                projectIcon.style("display", "inline-block");
+                projectIcon.style("margin", "5px");
+                projectIcon.parent(projectLink);
+                projectLink.parent(header);
+
 
                 header.parent(projectDiv);
                 description.parent(projectDiv);
 
                 projectDiv.parent(container);
 
-                // console.log(project);
             }
             return container;
         }
