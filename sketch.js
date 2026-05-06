@@ -1,7 +1,7 @@
 let name = "Fihra";
 let title = "F              i             h              r             a            ";
 // let hydra;
-let aboutSection = "Welcome to my digital garden. I do creative coding & music/audio."
+let aboutSection = "Welcome to my digital garden. I do creative coding & game music/audio."
 
 let allNodes = [];
 let projectsData;
@@ -20,6 +20,11 @@ let startX, startY;
 let endX, endY;
 
 let isTogglePulseOn = false;
+let bpm = 140;
+let beatInterval = 60000 / bpm;
+let lastBeat = 0;
+
+let beatSize = 0;
 
 async function setup() {
     createCanvas(windowWidth, windowHeight);
@@ -159,7 +164,7 @@ function draw() {
   }
 
 
-    console.log(isTogglePulseOn ? "is  on" :"is off");
+    // console.log(isTogglePulseOn ? "is  on" :"is off");
 
 
 
@@ -180,6 +185,27 @@ function draw() {
             allNodes[i].showInlet();
             allNodes[i].showOutlet();
             allNodes[i].showContent();
+        }
+
+        if(allNodes[i].category === "name"){
+
+            if(isTogglePulseOn){
+                if(millis() - lastBeat > beatInterval){
+                    lastBeat = millis();
+                    beatSize = 20;
+                    
+                } else {
+                    beatSize = lerp(beatSize, 0, 0.12);
+                }
+
+                // if(beatSize < 0.5){
+                //     allNodes[i].syncBasePos();
+                // }
+
+                allNodes[i].applyPulse(beatSize);
+            }
+
+
         }
 
         // let uiButton = createButton(allNodes[i].category);

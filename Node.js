@@ -4,11 +4,17 @@ class Node {
         this.category = category;
         this.el.position(x, y);
         this.el.size(width, height);
+        this.baseWidth = width;
+        this.baseHeight = height;
+        this.baseX = x;
+        this.baseY = y;
         this.isNodeOn = true;
         this.isContentScrolling = contentScroll;
 
         this.xPos = 0;
         this.textSpeed = 0.6;
+
+        this.isDragging = false;
 
         this.el.style('border', '2px solid #ccc');
         // this.el.style("box-sizing", "border-box");
@@ -52,8 +58,36 @@ class Node {
         this.outletPosition = {x: this.el.position().x, y: this.el.position().y + this.el.height, width: 20, height: 20};
 
         this.el.draggable();
+
+        this.el.elt.addEventListener("mousedown", () => {
+            this.isDragging = true;
+        });
+
+        window.addEventListener("mouseup", () => {
+            this.isDragging = false;
+        });
+
+        window.addEventListener("mousemove", () => {
+            if(this.isDragging) {
+                this.baseX = this.el.position().x;
+                this.baseY = this.el.position().y;
+            }
+        })
+
     }
 
+    applyPulse(amount){
+        this.el.size(this.baseWidth + amount, this.baseHeight + amount);
+        this.el.position(
+            this.baseX - amount /2,
+            this.baseY - amount/ 2
+        )
+    }
+
+    // syncBasePos(){
+    //     this.baseX = this.el.position().x + (this.el.width - this.baseWidth) /2;
+    //     this.baseY = this.el.position().y + (this.el.height - this.baseHeight) /2;
+    // }
 
     checkContent(content) {
         if(this.category === "contact"){
