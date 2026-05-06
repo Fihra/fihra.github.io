@@ -19,6 +19,8 @@ let lastDrawingState = isDrawing;
 let startX, startY;
 let endX, endY;
 
+let isTogglePulseOn = false;
+
 async function setup() {
     createCanvas(windowWidth, windowHeight);
 
@@ -76,6 +78,8 @@ async function setup() {
     strudelUIButton.position(lastNodePosition.x, lastNodePosition.y);
     strudelUIButton.addClass("nav-btn");
 
+    lastNodePosition = {x: strudelUIButton.x + 120, y: 10};
+
     let strudelButtonText = createP("more strudel");
     strudelButtonText.style("margin-top", "7px");
     strudelButtonText.style('font-size', "12px");
@@ -83,6 +87,25 @@ async function setup() {
 
     strudelUIButton.mousePressed(() => {
         window.open("https://fihra.github.io/strudel-showcase/", "_blank");
+    })
+
+    let togglePulseButtonContainer = createDiv();
+    togglePulseButtonContainer.size(100, 40);
+    togglePulseButtonContainer.position(lastNodePosition.x, lastNodePosition.y + 5);
+
+
+
+    let togglePulseButton = createButton("X");
+    togglePulseButton.parent(togglePulseButtonContainer);
+
+    togglePulseButton.style("background-color", "black");
+    togglePulseButton.style("color", "#505050");
+
+    togglePulseButton.mousePressed(() => {
+        isTogglePulseOn = !isTogglePulseOn;
+
+        styleToggleButton(togglePulseButton);
+
     })
 
 
@@ -96,6 +119,14 @@ async function setup() {
 //     makeGlobal: false
 //   }).synth;
 //   hydra.s0.init({ src: p5Canvas.elt});
+}
+
+function styleToggleButton(btn){
+    if(isTogglePulseOn){
+        btn.style("color", "white");
+    } else {
+        btn.style("color", "#505050");
+    }
 }
 
 function draw() {
@@ -126,6 +157,10 @@ function draw() {
         bezier(a.x, a.y, a.x, a.y + 60, b.x, b.y - 60, b.x, b.y);
     }
   }
+
+
+    console.log(isTogglePulseOn ? "is  on" :"is off");
+
 
 
   if(isDrawing){
