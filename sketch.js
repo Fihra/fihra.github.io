@@ -76,7 +76,6 @@ async function setup() {
             allNodes[i].isNodeOn = true;
         });
     }
-    // console.log(lastNodePosition);
 
     let strudelUIButton = createDiv();
     strudelUIButton.size(100, 40);
@@ -134,6 +133,24 @@ function styleToggleButton(btn){
     }
 }
 
+function getConnectedNodes(sourceNode){
+    let visited = new Set();
+    let queue = [sourceNode];
+    visited.add(sourceNode);
+
+    while(queue.length > 0){
+        let current = queue.shift();
+        for(let cable of cables){
+            if(cable.from === current && !visited.has(cable.to)){
+                visited.add(cable.to);
+                queue.push(cable.to);
+            }
+        }
+    }
+    visited.delete(sourceNode);
+    return visited;
+}
+
 function draw() {
   background(220);
   text(name, width/2, height/2);
@@ -161,22 +178,16 @@ function draw() {
         noFill();
         bezier(a.x, a.y, a.x, a.y + 60, b.x, b.y - 60, b.x, b.y);
     }
+
   }
 
-
-    // console.log(isTogglePulseOn ? "is  on" :"is off");
-
-
-
   if(isDrawing){
-    // stroke(255);
+
     stroke(255, 200, 0);
     strokeWeight(2);
     noFill();
     bezier(startX, startY, startX, startY + 60, mouseX, mouseY - 60, mouseX, mouseY);
 
-    // line(pmouseX, pmouseY, mouseX, mouseY);
-    // line(startX, startY, mouseX, mouseY);
   }
 
     for(let i = 0; i < allNodes.length; i++){
@@ -187,30 +198,35 @@ function draw() {
             allNodes[i].showContent();
         }
 
-        if(allNodes[i].category === "name"){
-
-            if(isTogglePulseOn){
-                if(millis() - lastBeat > beatInterval){
-                    lastBeat = millis();
-                    beatSize = 20;
-                    
-                } else {
-                    beatSize = lerp(beatSize, 0, 0.12);
-                }
-
-                // if(beatSize < 0.5){
-                //     allNodes[i].syncBasePos();
-                // }
-
-                allNodes[i].applyPulse(beatSize);
+        if(allNodes[i].category === "name" && isTogglePulseOn){
+            if(millis() - lastBeat > beatInterval){
+                lastBeat = millis();
+                beatSize = 10;
+                
+            } else {
+                beatSize = lerp(beatSize, 0, 0.12);
             }
 
+            allNodes[i].applyPulse(beatSize);
 
+            let connected = getConnectedNodes(allNodes[i]);
+            for(let node of connected){
+                node.applyPulse(beatSize);
+            }
+
+            for(let node of allNodes){
+                if(node !== allNodes[i] && !connected.has(node)){
+                    node.applyPulse(0);
+                }
+            }
         }
 
-        // let uiButton = createButton(allNodes[i].category);
-        // uiButton.size(100, 80);
-
+        if(allNodes[i].category === "name" && !isTogglePulseOn){
+            beatSize = 0;
+            for(let node of allNodes){
+                node.applyPulse(0);
+            }
+        }
     }
 
 //   hydra.osc().out();
@@ -252,46 +268,3 @@ function mouseReleased(){
     isDrawing = false;
     draggingFrom = null;
 }
-
-// function mousePressed(){
-
-
-//     console.log("startX: ", startX);
-//     console.log("startY: ", startY);
-
-
-//     for(let i = 0; i <allNodes.length; i++){
-//         if(allNodes[i].isNodeOn){
-//             if(allNodes[i].isOnInlet){
-//                 lastIsDrawing = isDrawing;
-//                 isDrawing = !isDrawing;
-
-
-//                 if(lastIsDrawing){ 
-//                     console.log("finished line");
-//                     endX = mouseX;
-//                     endY = mouseY;
-
-//                     let mainOutletPosition = {x: allNodes[i].el.position().x, y: allNodes[i].el.position + allNodes[i].el.height};
-//                     // console.log(`Starting: ${startX}, ${startY}`);
-//                     console.log("mainInletPosition: ", mainOutletPosition);
-
-//                 }
-
-
-//                 if(isDrawing){
-//                     startX = mouseX;
-//                     startY = mouseY;
-//                     let mainInletPosition = {x: allNodes[i].el.position().x, y: allNodes[i].el.position().y};
-//                     // console.log(`Starting: ${startX}, ${startY}`);
-//                     console.log("mainInletPosition: ", mainInletPosition);
-//                 }
-
-
-
-//                 console.log("mouse is on inlet");
-//                 console.log("is drwaing: ", isDrawing);
-//             }
-//         }
-//     }
-// }

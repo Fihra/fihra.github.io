@@ -11,6 +11,8 @@ class Node {
         this.isNodeOn = true;
         this.isContentScrolling = contentScroll;
 
+        this.isPulsing = false;
+
         this.xPos = 0;
         this.textSpeed = 0.6;
 
@@ -68,15 +70,18 @@ class Node {
         });
 
         window.addEventListener("mousemove", () => {
-            if(this.isDragging) {
-                this.baseX = this.el.position().x;
-                this.baseY = this.el.position().y;
+            if(this.isDragging && !this.isPulsing) {
+                // this.baseX = this.el.position().x;
+                // this.baseY = this.el.position().y;
+                this.baseX = this.el.position().x + (this.el.width - this.baseWidth) / 2;
+                this.baseY = this.el.position().y + (this.el.height - this.baseHeight) / 2;
             }
         })
 
     }
 
     applyPulse(amount){
+        this.isPulsing = amount > 0.5;
         this.el.size(this.baseWidth + amount, this.baseHeight + amount);
         this.el.position(
             this.baseX - amount /2,
