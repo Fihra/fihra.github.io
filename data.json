@@ -1,10 +1,24 @@
 {
     "projects": [
         {
+            "title": "Hidden Training",
+            "image": "/images/hidden_training.gif",
+            "description": "An art installation depicting Filipino Martial Arts training in secret through manual labor during the Spanish Colonization ban of the art.",
+            "websiteLink": "https://grayarea.org/event/gray-area-creative-code-showcase-spring-2026/",
+            "githubLink": ""
+        },
+        {
             "title": "Makinang na Kulintang",
             "image": "/images/kulintang-web.png",
             "description": "A web instrument of a traditional Filipino gong set instrument called the Kulintang.",
             "websiteLink": "https://kulintang-web.onrender.com/",
+            "githubLink": ""
+        },
+        {
+            "title": "Light Sequencer",
+            "image": "/images/light_sequencer.gif",
+            "description": "An Arduino connected to a Pure Data patch playing procedural music where each light is associated with a different instrument.",
+            "websiteLink": "https://github.com/Fihra/Light-Sequencer",
             "githubLink": ""
         },
         {
