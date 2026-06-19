@@ -26,16 +26,11 @@ let lastBeat = 0;
 
 let beatSize = 0;
 
-function contextMenu(event){
-    event.preventDefault();
 
-    console.log("hi");
-}
 
 async function setup() {
-    createCanvas(windowWidth, windowHeight);
+    let canvas = createCanvas(windowWidth, windowHeight);
 
-    document.addEventListener("contextmenu", contextMenu);
 
     projectsData = await loadJSON("data.json");
 
@@ -120,7 +115,7 @@ async function setup() {
 
     })
 
-
+    canvas.elt.addEventListener("contextmenu", contextMenu);
 
 //   const hCanvas = document.getElementById("hydra-canvas");
 //   hCanvas.width = width;
@@ -277,3 +272,31 @@ function mouseReleased(){
     draggingFrom = null;
 }
 
+function contextMenu(event) {
+    event.preventDefault();
+
+    for(let i = cables.length - 1; i >= 0; i--) {
+        let cable = cables[i];
+        if(!cable.from.isNodeOn || !cable.to.isNodeOn) continue;
+
+        let a = cable.from.getOutletPos();
+        let b = cable.to.getInletPos();
+
+        if(isMouseOnBezier(a, b, mouseX, mouseY, 10)) {
+            cables.splice(i, 1);
+            break;
+        }
+    }
+}
+
+function isMouseOnBezier(a, b, mx, my, threshold) {
+    let steps = 50;
+    for(let t = 0; t <= 1; t += 1 / steps) {
+        let bx = bezierPoint(a.x, a.x, b.x, b.x, t);
+        let by = bezierPoint(a.y, a.y + 60, b.y - 60, b.y, t);
+        if(dist(mx, my, bx, by) < threshold) {
+            return true;
+        }
+    }
+    return false;
+}
